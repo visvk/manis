@@ -1,0 +1,48 @@
+{block content}
+<h1 n:block="title">Projekty</h1>
+
+{form projRegForm}
+<div class="registration-form">
+    {control $form errors}
+
+    <div class="pair">
+        <table class="tasks">
+            <thead>
+                <tr>
+                    <th class="one">{label text /}</th> 
+                     <th class="six">{label acronym /}</th> 
+                    <th class="two">{label solver /}</th>
+                    <th class="three">{label subject /}</th>
+                    <th class="four">{label birthDate /}</th>
+                    <th class="five">{label endDate /}</th>
+                    <th class="six"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>  
+                    <td class="one">{input text}</td>
+                    <td class="six">{input acronym}</td>
+                    <td class="two">{input solver}</td>
+                    <td class="three"> {input subject}</td>
+                  <td class="four"> {input birthDate}</td>
+                    <td class="five">{input endDate}</td>
+                    <td class="six">{input set}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <script>
+  $(document).ready(function () {
+      $("input.date")
+          .datepicker("option", "changeMonth", true)
+          .datepicker("option", "changeYear", true);
+  });
+        </script>
+    </div>
+</div>
+
+ {/form}
+
+
+{control projectGrid}
+{/block}

@@ -1,0 +1,145 @@
+{**
+ * My Application layout template.
+ *
+ * @param string   $basePath web base path
+ * @param string   $robots   tell robots how to index the content of a page (optional)
+ * @param array    $flashes  flash messages
+ *}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="robots" content="{$robots}" n:ifset="$robots">
+
+	<title>{block title|striptags|upper}Student Project{/block}</title>
+
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css">
+	<link rel="stylesheet" media="print" href="{$basePath}/css/print.css">
+
+	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
+
+
+
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css" />
+  <script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+  </script>
+  
+	
+</head>
+
+ <body>
+     
+     <script>
+/* Czech initialisation for the jQuery UI date picker plugin. */
+/* Written by Tomas Muller (tomas@tomas-muller.net). */
+jQuery(function($) {
+        $.datepicker.regional['sk'] = {
+                closeText: 'Zavrieť',
+                prevText: '&#x3c;Predchádzajúci',
+                nextText: 'Nasledujúci&#x3e;',
+                currentText: 'Dnes',
+                monthNames: ['Január','Február','Marec','Apríl','Máj','Jún',
+                'Júl','August','September','Október','November','December'],
+                monthNamesShort: ['Jan','Feb','Mar','Apr','Máj','Jún',
+                'Júl','Aug','Sep','Okt','Nov','Dec'],
+                dayNames: ['Nedel\'a','Pondelok','Utorok','Streda','Štvrtok','Piatok','Sobota'],
+                dayNamesShort: ['Ned','Pon','Uto','Str','Štv','Pia','Sob'],
+                dayNamesMin: ['Ne','Po','Ut','St','Št','Pia','So'],
+                weekHeader: 'Ty',
+                dateFormat: 'dd.mm.yy',
+                firstDay: 0,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''};
+        $.datepicker.setDefaults($.datepicker.regional['sk']);
+
+});
+</script>
+
+     
+        <div id="header">
+            <div class="title"> Študent Projekt</div>
+
+        {if $user->isLoggedIn()}
+            <div class="user">
+                
+            {if ($user->isAllowed('Reg'))}
+                <a n:href="Registration:registry">Registrácia užívateľa</a>
+                
+            {/if}
+                <span class="icon user">{$user->getIdentity()->login}</span> |
+               
+                <a n:href="Sign:out">Logout</a>
+            </div>
+        {/if}
+            {if !$user->isLoggedIn()}
+            <div class="user">
+                <a n:href="Sign:in">Prihlásiť sa</a>
+            </div>
+            {/if}
+
+        </div>
+
+    
+
+
+
+	<div id="container">
+           {if $user->isLoggedIn()}
+          
+    <div id="sidebar">
+
+        <h2><a n:href="Homepage:">Prehľad</a></h2>
+
+        <div class="task-lists">
+            {if ($user->isAllowed('Reg'))}
+             <h2><a n:href="Project:projects">Projekty</a></h2>
+             <h2><a n:href="Subject:subsum">Predmety</a></h2>   
+             <h2><a n:href="UserView:">Užívatelia</a></h2> 
+            
+            
+             {/if}
+        </div>
+
+    </div>
+         
+                
+                
+            {if !$user->isLoggedIn()}
+		
+                <p>You are not logged in.</p>
+            {/if}
+   
+     
+			
+{/if}
+        <div id="content">
+            <div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+           
+{include #content}
+ 
+        </div>
+           
+  
+    
+    
+           
+
+
+<div id="footer">       
+</div>
+</div>
+
+
+
+
+</body>
+</html>

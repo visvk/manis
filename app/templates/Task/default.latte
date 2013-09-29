@@ -1,0 +1,93 @@
+{block content}
+<h1 n:block="title">{$project->text}</h1>
+{if ($user->isAllowed('Default'))} 
+<h2> <a n:href="Project:projects">Naspäť </a>
+      <a n:href="Task:files $project->id"><img src="images/Folder.png">Pridané súbory </a></h2>
+{/if}
+ {if ($user->isAllowed('Default') || $abc > 0)} 
+{form taskRegForm}
+
+<div class="registration-form">
+    {control $form errors}
+
+    <div class="pair">
+
+        <script>
+ $(document).ready(function () {
+     $("input.date")
+         .datepicker("option", "changeMonth", true)
+         .datepicker("option", "changeYear", true);
+ });
+        </script>
+    </div>
+    <table class="tasks">
+        <thead>
+            <tr>
+                <th class="one">{label text /}</th> 
+                <th class="two">{label solver /}</th>
+                <th class="three">{label birthDate /}</th>
+                <th class="four">{label endDate /}</th>
+                <th class="five">{label numfiles /}</th>
+                <th class="five"></th>
+                
+              
+            </tr>
+        </thead>
+        <tbody>
+            <tr>  
+                <td class="one">{input text}</td>
+                <td class="two">{input solver}</td>
+                <td class="three">{input birthDate}</td>
+                <td class="four">{input endDate}</td>
+                <td class="five">{input numfiles}</td>
+                <td class="five">{input set}</td>
+                <td class="five"></td>
+                
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+{/form}
+{/if}
+
+
+{control taskGrid}
+{if ($user->isAllowed('Default'))}    
+{form proj_usRegForm}
+<div class="registration-form">
+    {control $form errors}
+    <div class="pair">
+
+        <table class="tasks">
+            <thead>
+                <tr>
+                   <th class="one">{label solver /}</th> 
+                <th class="two"></th>
+                <th class="three"></th>
+                <th class="four">{label manager /}</th>
+                <th class="five"></th>
+                <th class="six"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>  
+                <td class="one">{input solver}</td>
+                <td class="two"></td>
+                <td class="three"></td>
+                <td class="four">{input manager}</td>
+                <td class="five">{input set}</td>
+                <td class="six"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{/form}
+{/if}
+{control proj_usGrid}
+ {if ($user->isAllowed('Reg'))}  <div class="edite"><a n:href="edit $project->id" class="icon edit ajax">Editácia projektu</a></div>
+
+{/if}
+{/block}

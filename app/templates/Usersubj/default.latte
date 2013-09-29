@@ -1,0 +1,27 @@
+
+{block content}
+<h1 n:block="title">{$subjdat->subject} {$subjdat->school_year->year}</h1>
+
+  {form connectToSubjForm}
+<div class="registration-form">  
+     {control $form errors}
+<table class="tasks">
+        <thead>
+            <tr>
+                <th class="one">{label login /}</th> 
+                <th class="two"></th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr>  
+                <td class="one">{input login}</td>
+                <td class="two">{input set}</td>
+               
+            </tr>
+        </tbody>
+    </table>
+    
+</div>
+{/form}
+{control usersInSubjGrid}

@@ -1,0 +1,66 @@
+#
+# SECURITY WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
+#
+# If you don't protect this directory from direct web access, anybody will be able to see your passwords.
+# http://nette.org/security-warning
+#
+common:
+	parameters:
+
+		database:
+			driver: mysql
+			host: hron.fei.tuke.sk
+			dbname: sincakv
+			user: sincakv
+			password: polozim
+
+	php:
+		date.timezone: Europe/Prague
+		# zlib.output_compression: yes
+
+	nette:
+		application:
+			errorPresenter: Error
+
+		session:
+			expiration: 14 days
+
+
+	services:
+		database:
+			class: Nette\Database\Connection
+			arguments: [
+				'%database.driver%:host=%database.host%;dbname=%database.dbname%',
+				%database.user%,
+				%database.password%
+			]
+
+		authenticator: NetteACL\Security\Authenticator
+		userRepository: Project\UserRepository
+		proj_usRepository: Project\Proj_usRepository
+		projectRepository: Project\ProjectRepository
+		roleRepository: Project\RoleRepository
+		school_yearRepository: Project\School_yearRepository
+		subjectRepository: Project\SubjectRepository
+		taskRepository: Project\TaskRepository
+		userDataRepository: Project\UserDataRepository
+		user_subjRepository: Project\User_subjRepository
+		fileRepository: Project\FileRepository
+
+		authorizator:	
+			class: Nette\Security\Permission
+			setup:
+				- addRole('teacher')
+				- addRole('student')
+				- addRole('lecturer')
+				- addResource('Default')
+				- addResource('Reg')
+				- allow('teacher', 'Default')
+				- allow('lecturer')
+
+	factories:
+
+
+production < common:
+
+development < common:

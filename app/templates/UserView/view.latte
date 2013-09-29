@@ -1,0 +1,30 @@
+
+{block content}
+<h1 n:block="title">Užívatelia</h1>
+<h2> <a n:href="UserView:default">Naspäť </a></h2>
+<table class="tasks">
+    <thead>
+    <tr>
+        <th class="one">Login</th>
+        <th class="two">Meno</th>        
+        <th class="three">Priezvisko</th>
+        <th class="four">Email</th>
+        <th class="five">Rola</th>
+
+    </tr>
+    </thead>
+   
+    <tbody>
+  
+    <tr >
+      
+        <td class="one">{$users->login}</td>
+        <td class="two">{$users->name}</td>        
+        <td class="tdree">{$users->surname}</td>
+        <td class="four">{$users->email}</td>
+        <td class="five">{$users->role->role}</td>
+        </tr>
+    
+    </tbody>
+</table>
+{control userViewGrid}

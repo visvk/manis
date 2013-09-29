@@ -1,0 +1,32 @@
+{block content}
+<h1 n:block="title">Užívatelia</h1>
+{form akceForm}
+<ul class="errors" n:if="$form->hasErrors()">
+    <li n:foreach="$form->errors as $error">{$error}</li>
+</ul>
+<table class="tasks">
+   
+    <thead>
+    <tr>
+        <th class="one">{label obrazek/}</th>
+              
+        <th class="three"></th>
+        
+    </tr>
+    </thead>
+   
+    <tbody>
+    
+    <tr>
+        <td class="one"> {input obrazek}</td>
+             
+        <td class="tdree">{input save}</td>
+        
+    </tr>
+    
+    </tbody>
+   
+</table>
+
+ {/form akceForm}
+{control usersGrid}
