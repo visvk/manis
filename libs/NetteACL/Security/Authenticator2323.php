@@ -15,7 +15,7 @@ class Authenticator222 extends Nette\Object implements Nette\Security\IAuthentic
 	/**
 	 * @param Nette\Database\Connection
 	 */
-    public function __construct(Nette\Database\Connection $database)
+    public function __construct(Nette\Database\Context $database)
     {
         $this->database = $database;
     }

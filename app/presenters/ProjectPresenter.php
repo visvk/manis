@@ -105,8 +105,7 @@ class ProjectPresenter extends BasePresenter {
     
     protected function createComponentProjectGrid($name) {
         $grid = new Grid($this, $name);
-        $grid->setModel($this->context->database->table('project')
-                        ->select('project.id,text, submitted, created, solver, subject.subject, subject.school_year.year, acronym,grade,mark'))
+        $grid->setModel($this->projectRepository->getProjects())
                 ->setDefaultPerPage(10);
 
         $grid->addColumn('text', 'Názov')

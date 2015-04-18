@@ -3,17 +3,18 @@
 namespace Project;
 
 use Nette;
+use Nette\Database\Connection;
 
 /**
  * Provádí operace nad databázovou tabulkou.
  */
 abstract class Repository extends Nette\Object {
 
-    /** @var Nette\Database\Connection */
-    protected $connection;
+    /** @var Nette\Database\Context */
+    public $db;
 
-    public function __construct(Nette\Database\Connection $db) {
-        $this->connection = $db;
+    public function __construct(Connection $db) {
+        $this->db = new Nette\Database\Context($db);
     }
 
     /**
@@ -23,7 +24,7 @@ abstract class Repository extends Nette\Object {
     protected function getTable() {
 // název tabulky odvodíme z názvu třídy
         preg_match('#(\w+)Repository$#', get_class($this), $m);
-        return $this->connection->table(lcfirst($m[1]));
+        return $this->db->table(lcfirst($m[1]));
     }
 
     /**

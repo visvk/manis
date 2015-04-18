@@ -7,21 +7,23 @@ use Nette\Security\Identity;
 use Nette\Object,
       Nette\Environment;
 use Nette\Security\AuthenticationException;
+use Nette\Database\Connection;
 
 
 
 class Authenticator extends Nette\Object implements Nette\Security\IAuthenticator {
  
-	/** @var Nette\Database\Connection */
+	/** @var Nette\Database\Context */
     private $database;
     private $inRole;
 
 	/**
-	 * @param Nette\Database\Connection
+	 * @param Nette\Database\Context
 	 */
-    public function __construct(Nette\Database\Connection $database)
+    public function __construct(Connection $database)
     {
-        $this->database = $database;
+
+        $this->database = new Nette\Database\Context($database);
     }
 
 
@@ -47,7 +49,6 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
         //** Najde prisluchajucu rolu.
         $inRole = $this->database->table('role')->where('id',$row->role_id)->fetch();     
 
-		unset($row->password);       
            return new Identity($row->id, $inRole->role, $row->toArray());
  //** Samotna authent. cez LDAP
 	/*	$ldap_conn = ldap_connect('ldaps://ldap.fei.tuke.sk');
