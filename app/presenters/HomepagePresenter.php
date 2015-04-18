@@ -93,7 +93,7 @@ class HomepagePresenter extends BasePresenter
      protected function createComponentProjectGrid($name) {
         $grid = new Grid($this, $name);
        // $grid->translator->setLang('sk');
-        $grid->setModel($this->context->database->table('task')
+        $grid->setModel($this->context->database->table('proj_us')
                         ->select('project.id AS id,project.text,project.created,project.submitted,project.acronym,project.grade')
                 ->where('user_subj.user_id', $this->user->getId()))
                 ->setDefaultPerPage(5);
