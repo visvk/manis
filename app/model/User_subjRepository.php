@@ -29,4 +29,11 @@ class User_subjRepository extends Repository
 			->select('user_subj.id,user.login')
 			->where('subject_id', $subjectId)->fetchPairs('id', 'login');
 	}
+
+	public function getUsersInformationBySubjectId($subjectId)
+	{
+		return $this->getTable()->select('user.login, user.name, user.id AS usid, user.surname, user.email')
+			->where('subject_id', $subjectId);
+	}
+
 }

@@ -212,7 +212,7 @@ class TaskPresenter extends BasePresenter
 
 	protected function createComponentTaskRegForm()
 	{
-		$users = $this->taskRepository->getAssignedUsersByProjectId($this->idproj);
+		$users = $this->proj_usRepository->getAssignedUsersByProjectId($this->idproj);
 		//  $projects = $this->projectRepository->findAll()->fetchPairs('id', 'text');
 
 		$form = new Form();

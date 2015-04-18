@@ -81,4 +81,5 @@ class TaskRepository extends Repository
 			->select('task.id AS id,project_id,text, user_subj.user.login ,submitted,created,numfiles,grade')
 			->where('project_id', $projectId);
 	}
+
 }

@@ -37,7 +37,7 @@ class Proj_usRepository extends Repository
 	{
 		return $this->getTable()
 			->select('user_subj_id,user_subj.user.login')
-			->where('project_id', $this->idproj)
+			->where('project_id', $projectId)
 			->fetchPairs('user_subj_id', 'login');
 	}
 
