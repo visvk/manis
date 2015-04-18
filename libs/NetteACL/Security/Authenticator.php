@@ -1,6 +1,6 @@
 <?php
 // pro PHP 5.3
- use Nette\Object, Nette\Security\IAuthenticator, Nette\Security\AuthenticationException, Nette\Security\Identity;
+// use Nette\Object, Nette\Security\IAuthenticator, Nette\Security\AuthenticationException, Nette\Security\Identity;
  namespace NetteACL\Security;
 use Nette;
 use Nette\Security\Identity;

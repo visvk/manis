@@ -1,0 +1,1 @@
+# Manazment skolskych systemov

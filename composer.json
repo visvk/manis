@@ -5,12 +5,11 @@
 	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
 	"authors": [
 		{
-			"name": "David Grudl",
-			"homepage": "http://davidgrudl.com"
+			"name": "Viktor Sincak",
+			"email": "viktor.sincak@gmail.com"
 		},
 		{
-			"name": "Nette Community",
-			"homepage": "http://nette.org/contributors"
+			"name": "Frederik Geci"
 		}
 	],
 	"config": {

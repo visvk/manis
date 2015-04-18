@@ -9,10 +9,10 @@ common:
 
 		database:
 			driver: mysql
-			host: hron.fei.tuke.sk
-			dbname: sincakv
-			user: sincakv
-			password: polozim
+			host: localhost
+			dbname: bcgeci
+			user: root
+			password: root
 
 	php:
 		date.timezone: Europe/Prague
@@ -50,12 +50,12 @@ common:
 		authorizator:	
 			class: Nette\Security\Permission
 			setup:
-				- addRole('teacher')
+				- addRole('ucitel')
 				- addRole('student')
 				- addRole('lecturer')
 				- addResource('Default')
 				- addResource('Reg')
-				- allow('teacher', 'Default')
+				- allow('ucitel', 'Default')
 				- allow('lecturer')
 
 	factories:

@@ -11,6 +11,7 @@ class User_subjRepository extends Repository
      public function findAllUsersInSubj(){
       return $this->findAll();
 }
+
 public function connectToSubj($prezyvka_id, $predmet_id) 
 {
        // $this->getTable()->select($columns)
