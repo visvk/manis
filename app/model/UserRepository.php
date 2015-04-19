@@ -74,4 +74,12 @@ class UserRepository extends Repository
 			->select('user.id,name, surname, login, role.role, email');
 	}
 
+	public function getTeachers()
+	{
+		return $this->getTable()
+			->select('user.id,name, surname, login, role.role, email')
+			->where("role.role = ? OR role.role = ?", 'ucitel', 'lecturer');
+
+	}
+
 }

@@ -1,0 +1,23 @@
+.homepage.project-name {
+    border-bottom: 1px solid #d8dce4;
+    background: #f5f6f7;
+    padding: 5px 10px;
+    font-size: 11px;
+    line-height: -0.5;
+    border-radius: 3px;
+}
+
+.homepage.title {
+  margin-left: 38%;
+}
+
+.homepage-item {
+
+  border-right: 1px solid #E4E2DA;
+  min-height: 39%;
+}
+.no-border-right {
+
+  border-right: 0px solid #E4E2DA;
+}
+

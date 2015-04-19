@@ -25,18 +25,31 @@ class HomepagePresenter extends BasePresenter
 
 	private $taskRepository;
 	private $projectUserReposiroty;
+	private $userSubjectRepository;
+	private $subjectRepository;
+	private $userRepository;
 
 
-	public function inject(Project\TaskRepository $taskRepository, Project\Proj_usRepository $projUs)
+	public function inject(Project\TaskRepository $taskRepository,
+						   Project\User_subjRepository $userSubjectRepository,
+						   Project\SubjectRepository $subjectRepository,
+						   Project\UserRepository $userRepository,
+						   Project\Proj_usRepository $projUs)
 	{
 		$this->taskRepository = $taskRepository;
 		$this->projectUserReposiroty = $projUs;
+		$this->userSubjectRepository = $userSubjectRepository;
+		$this->subjectRepository = $subjectRepository;
+		$this->userRepository = $userRepository;
 	}
 
 
 	public function renderDefault()
 	{
 		$this->template->tasks = $this->taskRepository->findAll();
+		$this->template->mySubjects = $this->userSubjectRepository->getSubjectsByUserId($this->user->getId());
+		$this->template->subjects = $this->subjectRepository->getSubjects();
+		$this->template->teachers = $this->userRepository->getTeachers();
 	}
 
 	protected function createComponentTaskGrid($name)

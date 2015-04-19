@@ -46,7 +46,7 @@ margin: 0 auto;
 
 #sidebar {
 float: left;
-width: 150px;
+width: 165px;
 border-right: 1px solid #E4E2DA;
 }
 
@@ -287,3 +287,4 @@ background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAY
 .icon.edit {
 background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAXxJREFUeNqU0s1LAkEYBvDHsK4FJXmQOmR1iaLyov9Ah4g+Dt3qVEJU9xCkIFAp6LAlBIYQ3oMIukhKSUaFH+mlukggRWuipeLX2jS7ZGDaMg3swszu79l93xngH+Nhy0eitjNSnRNC0MSK161W0jrUC9KlRnTb8xPCFGCy7JKVpWXsh53I81nEsxUEzUeEKeDaPEJMc33g7E6Mj03A/XmOcqYMIclLzxVy2G/WE/20CkjEEWtZgOuWYHBAC++VF9ymTUd7EFDI4hk1wL8BKXplXhFpW8VhSIEdy4aOvhIQm6iQx0mKU0D2na4W4AprML8XlPCfu1CPP2ihAg4i/TW44S40xmU47rRY5Hx1uCbgUgYbuYuGWBxK8eZb0xHDlOq7YWlmLAUkjidJx7AeeHQDSRqQy9H/EpiwVAIpVmhMJ0rds0BRoF8uMmMp4OS+HaeeJyhLeUBjgCPUw4ylEmJ8CS/PN9Cmm1EoKGG0+5lx9SiP/lpjxuJB+hJgAG9My8C+hsJpAAAAAElFTkSuQmCC");
 }
+

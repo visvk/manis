@@ -36,4 +36,10 @@ class User_subjRepository extends Repository
 			->where('subject_id', $subjectId);
 	}
 
+	public function getSubjectsByUserId($userId)
+	{
+		return $this->getTable()->select('subject.*')
+			->where('user_id', $userId);
+	}
+
 }

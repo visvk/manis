@@ -34,7 +34,6 @@ class ProjectPresenter extends BasePresenter {
         $this->projectRepository = $projectRepository;
         $this->subjectRepository = $subjectRepository;
     }
-    
 
     protected function createComponentProjRegForm() {
         $predmety = $this->subjectRepository->findAllSubject()->fetchPairs('id', 'subject');

@@ -1,13 +1,32 @@
 {block content}
+	<div class="col-md-4 homepage-item">
+		<h3 class="homepage title">Moje kurzy</h3>
+		<ul class="task-list">
+			<li n:foreach="$mySubjects as $mySubject">
+				<a n:href="Usersubj:default id=>$mySubject->id">{$mySubject->subject}</a>
+			</li>
 
-<h1 n:block="title">Moje úlohy</h1>
+		</ul>
+	</div>
+	<div class="col-md-4 homepage-item">
+		<h3 class="homepage title">Všetky kurzy</h3>
+		<ul class="task-list">
+			<li n:foreach="$subjects as $subject">
+				<a n:href="Usersubj:default id=>$subject->id">{$subject->subject}</a>
+			</li>
 
-<h1>Moje Projekty</h1>
+		</ul>
+	</div>
+	<div class="col-md-4 homepage-item no-border-right">
+		<h3 class="homepage title">Pedagógovia</h3>
+		<ul class="task-list list-unstyled">
+			<li n:foreach="$teachers as $teacher">
+				<div>{$teacher->name} {$teacher->surname}</div>
+			</li>
 
-<h1>Ucitelia</h1>
+		</ul>
 
-{control taskGrid}
-{control projectGrid}
+	</div>
 
 
 
