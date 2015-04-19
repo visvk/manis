@@ -285,10 +285,10 @@ class TaskPresenter extends BasePresenter
 		}
 		$valuesus = $form->getValues();
 		$userCount = $this->proj_usRepository->findAll();
-		if ($userCount->where('project_id', $this->idproj)->getCount() <= $this->project->solver) {
-			if ($userCount->where('project_id = ? AND user_subj_id =?', $this->idproj, $valuesus->solver)->getCount() == 0) {
+		if ($userCount->where('project_id', $this->idproj)->count() <= $this->project->solver) {
+			if ($userCount->where('project_id = ? AND user_subj_id =?', $this->idproj, $valuesus->solver)->count() == 0) {
 				$count = $this->proj_usRepository->findAll()
-					->where('manager = ? AND project_id = ?', 1, $this->idproj)->getCount('*');
+					->where('manager = ? AND project_id = ?', 1, $this->idproj)->count('*');
 
 
 				$manager = $valuesus->manager ? 1 : 0;

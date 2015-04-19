@@ -2,20 +2,37 @@
 	<div class="col-md-4 homepage-item">
 		<h3 class="homepage title">Moje kurzy</h3>
 		<ul class="task-list">
-			<li n:foreach="$mySubjects as $mySubject">
-				<a n:href="Usersubj:default id=>$mySubject->id">{$mySubject->subject}</a>
-			</li>
+
+			{foreach $mySubjects as $mySubject}
+				<div class="">{$mySubject->subject}</div>
+				{foreach $myProjects as $myProject}
+					{if $mySubject->id == $myProject->subject_id}
+						<li>
+							<a n:href="Task:default id=>$myProject->id">{$myProject->text}</a>
+						</li>
+					{/if}
+				{/foreach}
+
+			{/foreach}
 
 		</ul>
 	</div>
 	<div class="col-md-4 homepage-item">
 		<h3 class="homepage title">Všetky kurzy</h3>
-		<ul class="task-list">
-			<li n:foreach="$subjects as $subject">
-				<a n:href="Usersubj:default id=>$subject->id">{$subject->subject}</a>
-			</li>
-
-		</ul>
+		{foreach $subjects as $subject}
+		<div class="subject-items">
+			{$subject->subject}
+			<ul class="task-list">
+				{foreach $projects as $project}
+				{if $subject->id == $project->subject_id}
+				<li>
+					<a n:href="Task:default id=>$project->id">{$project->text}</a>
+					{/if}
+					{/foreach}
+				</li>
+			</ul>
+		</div>
+			{/foreach}
 	</div>
 	<div class="col-md-4 homepage-item no-border-right">
 		<h3 class="homepage title">Pedagógovia</h3>
@@ -28,7 +45,14 @@
 
 	</div>
 
+	{*<script>*}
+		{*$(document).ready(function(){*}
+			{*$('div.homepage-item ul').slideUp();*}
+			{*$('.subject-items').click(function(){*}
+				{*console.log("BABA");*}
+				{*$(this).next('ul').slideToggle();*}
 
-
-
+			{*});*}
+		{*})*}
+	{*</script>*}
 {/block}

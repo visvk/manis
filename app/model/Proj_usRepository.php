@@ -29,7 +29,7 @@ class Proj_usRepository extends Repository
 	public function getProjectsByUserId($userId)
 	{
 		return $this->getTable()
-			->select('project.id AS id,project.text,project.created,project.submitted,project.acronym,project.grade')
+			->select('project.id AS id,project.text,project.created,project.submitted,project.acronym,project.grade, project.subject.subject AS subject_name, project.subject_id')
 			->where('user_subj.user_id', $userId);
 	}
 

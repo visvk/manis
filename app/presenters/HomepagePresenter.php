@@ -24,20 +24,23 @@ class HomepagePresenter extends BasePresenter
 	}
 
 	private $taskRepository;
-	private $projectUserReposiroty;
+	private $projectUserRepository;
 	private $userSubjectRepository;
 	private $subjectRepository;
 	private $userRepository;
+	private $projectRepository;
 
 
 	public function inject(Project\TaskRepository $taskRepository,
 						   Project\User_subjRepository $userSubjectRepository,
 						   Project\SubjectRepository $subjectRepository,
 						   Project\UserRepository $userRepository,
+						   Project\ProjectRepository $projectRepository,
 						   Project\Proj_usRepository $projUs)
 	{
 		$this->taskRepository = $taskRepository;
-		$this->projectUserReposiroty = $projUs;
+		$this->projectUserRepository = $projUs;
+		$this->projectRepository = $projectRepository;
 		$this->userSubjectRepository = $userSubjectRepository;
 		$this->subjectRepository = $subjectRepository;
 		$this->userRepository = $userRepository;
@@ -47,8 +50,10 @@ class HomepagePresenter extends BasePresenter
 	public function renderDefault()
 	{
 		$this->template->tasks = $this->taskRepository->findAll();
+		$this->template->projects = $this->projectRepository->findAll();
+		$this->template->subjects = $this->subjectRepository->findAll();
 		$this->template->mySubjects = $this->userSubjectRepository->getSubjectsByUserId($this->user->getId());
-		$this->template->subjects = $this->subjectRepository->getSubjects();
+		$this->template->myProjects = $this->projectUserRepository->getProjectsByUserId($this->user->getId());
 		$this->template->teachers = $this->userRepository->getTeachers();
 	}
 
@@ -105,7 +110,7 @@ class HomepagePresenter extends BasePresenter
 	{
 		$grid = new Grid($this, $name);
 		// $grid->translator->setLang('sk');
-		$grid->setModel($this->projectUserReposiroty->getProjectsByUserId($this->user->getId()))
+		$grid->setModel($this->projectUserRepository->getProjectsByUserId($this->user->getId()))
 			->setDefaultPerPage(5);
 
 
