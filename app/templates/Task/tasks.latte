@@ -1,0 +1,51 @@
+{block content}
+
+	{include '_includes/projectMenu.latte'}
+	<h3 n:block="title">{$project->text}</h3>
+
+	{if ($user->isAllowed('Default') || $isManager > 0)}
+		{form taskRegForm}
+			<div class="registration-form">
+				{control $form errors}
+
+				<div class="pair">
+
+					<script>
+						$(document).ready(function () {
+							$("input.date")
+									.datepicker("option", "changeMonth", true)
+									.datepicker("option", "changeYear", true);
+						});
+					</script>
+				</div>
+				<table class="tasks">
+					<thead>
+					<tr>
+						<th class="one">{label text /}</th>
+						<th class="two">{label solver /}</th>
+						<th class="three">{label birthDate /}</th>
+						<th class="four">{label endDate /}</th>
+						<th class="five">{label numfiles /}</th>
+						<th class="five"></th>
+
+
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td class="one">{input text}</td>
+						<td class="two">{input solver}</td>
+						<td class="three">{input birthDate}</td>
+						<td class="four">{input endDate}</td>
+						<td class="five">{input numfiles}</td>
+						<td class="five">{input set}</td>
+						<td class="five"></td>
+
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		{/form}
+	{/if}
+	{control taskGrid}
+{/block}

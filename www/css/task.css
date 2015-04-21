@@ -1,0 +1,13 @@
+.task-information {
+  border-top: 1px solid #E4E2DA;
+  color: rgb(98, 98, 98);
+}
+.task-solvers{
+  color: rgb(98, 98, 98);
+  padding-right: 5%;
+
+}
+
+.project-solvers-names {
+  padding-left: 0%;
+}

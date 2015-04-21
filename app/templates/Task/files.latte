@@ -1,6 +1,7 @@
 
 {block content}
+{include '_includes/projectMenu.latte'}
+
 <h1 n:block="title">{$project->text}</h1>
-<h2> <a n:href="Task:default $project->id">Naspäť </a></h2>
 
 {control filesGrid}

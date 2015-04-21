@@ -44,7 +44,7 @@ class Proj_usRepository extends Repository
 	public function getUsersAndManagerByProjectId($projectId)
 	{
 		return $this->getTable()
-			->select('user_subj.user.login, manager')
+			->select('user_subj.user_id, user_subj.user.login, manager, user_subj.user.surname, user_subj.user.name')
 			->where('project_id',$projectId);
 	}
 }

@@ -50,6 +50,40 @@ class TaskPresenter extends BasePresenter
 	{
 
 		$this->project = $this->projectRepository->findBy(array('id' => $id))->fetch();
+
+		$brb = $this->proj_usRepository->findBy(array('project_id' => $id,
+			'user_subj.user_id' => $this->user->getId()));
+		if (!$this->user->isAllowed('Default') && $brb->count() === 0) {
+			$this->flashMessage('Access denied');
+			$this->redirect('Sign:in');
+		}
+		$this->idproj = $id;
+		if ($this->project === FALSE || $id === NULL) {
+			$this->setView('notFound');
+		}
+
+		$aleluja = $this->taskRepository->findBy(array('project_id' => $id));
+		$suma = $aleluja->aggregation('SUM(grade)');
+		$count = $aleluja->count();
+		if ($count != 0) {
+			$division = (int)$suma / $count;
+		} else {
+			$division = 0;
+		}
+		if ($this->project->grade != $division) {
+			$this->projectRepository->findBy(array('id' => $id))->update(array(
+					'grade' => $division
+				)
+			);
+
+		}
+	}
+
+	public function actionTasks($id)
+	{
+
+		$this->project = $this->projectRepository->findBy(array('id' => $id))->fetch();
+
 		$brb = $this->proj_usRepository->findBy(array('project_id' => $id,
 			'user_subj.user_id' => $this->user->getId()));
 		if (!$this->user->isAllowed('Default') && $brb->count() === 0) {
@@ -106,7 +140,7 @@ class TaskPresenter extends BasePresenter
 			$this->flashMessage('Access denied');
 			$this->redirect('Sign:in');
 		}
-		$this->idproj = $id;
+		$this->idproj = $this->template->projectId =  $id;
 
 		$this->projEd = $this->projectRepository->findById($id);
 		if (!$this->projEd) {
@@ -193,11 +227,22 @@ class TaskPresenter extends BasePresenter
 		$this->template->project = $this->projEd;
 	}
 
-	public function renderDefault()
+	public function renderDefault($id)
 	{
-		$this->template->abc = $this->proj_usRepository->findAll()->where("manager = 1 AND project_id = $this->idproj AND user_subj.user_id = ?", $this->user->getId())->count('*');
+		$this->template->projectId = $id;
+		$this->template->solvers = $this->proj_usRepository->getUsersAndManagerByProjectId($this->idproj);
+		$this->template->isManager = $this->proj_usRepository->findAll()->where("manager = 1 AND project_id = $this->idproj AND user_subj.user_id = ?", $this->user->getId())->count('*');
 		$this->template->project = $this->project;
 		$this->template->tasks = $this->taskRepository->findAll()->where('project_id', $this->idproj);
+	}
+
+	public function renderTasks($id)
+	{
+		$this->template->projectId = $id;
+		$this->template->solvers = $this->proj_usRepository->getUsersAndManagerByProjectId($id);
+		$this->template->isManager = $this->proj_usRepository->findAll()->where("manager = 1 AND project_id = $id AND user_subj.user_id = ?", $this->user->getId())->count('*');
+		$this->template->project = $this->project;
+		$this->template->tasks = $this->taskRepository->findAll()->where('project_id', $id);
 	}
 
 	public function renderFiles()
