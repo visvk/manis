@@ -1,7 +1,7 @@
-<div class="col-md-6">
+<div class="col-md-12">
 	<a class="btn btn-default" n:href="Task:default id=>$projectId" role="button">Informácie</a>
 	<a class="btn btn-default" n:href="Task:tasks id=>$projectId" role="button">Úlohy</a>
-	<a class="btn btn-default" href="#" role="button">Gantt</a>
+	<a class="btn btn-default" n:href="Task:gantt id=>$projectId" role="button">Gantt</a>
 	{if ($user->isAllowed('Default'))}
 			<a class="btn btn-default" n:href="Task:files $project->id" role="button">Výstupy</a>
 	{/if}

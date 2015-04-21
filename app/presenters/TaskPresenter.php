@@ -148,6 +148,44 @@ class TaskPresenter extends BasePresenter
 		}
 	}
 
+	public function actionGantt($id)
+	{
+		if (!$this->user->isAllowed('Default')) {
+			$this->flashMessage('Access denied');
+			$this->redirect('Sign:in');
+		}
+		$this->idproj = $this->template->projectId =  $id;
+
+		$this->projEd = $this->template->project = $this->projectRepository->findById($id);
+		if (!$this->projEd) {
+			$this->error('Zaznam nenajdeny');
+		}
+
+		$tasks = $this->taskRepository->findBy(array('project_id' => $id));
+
+		$ganttData = array(
+			array(
+				"id" => 1,
+				"name" => "Feature 1",
+				"series" => array(
+				)
+			)
+		);
+		$i = 0;
+		foreach ($tasks as $task) {
+			$ganttData[0]['series'][$i++] =
+
+				array(
+					"name" => $task->text,
+					"start" => (new DateTime($task->created))->format('Y-m-d'),
+					"end" => (new DateTime($task->submitted))->format('Y-m-d'),
+					"color" => "#e0e0e0"
+				);
+		}
+
+		$this->template->ganttData = json_encode($ganttData);
+	}
+
 	public function handleMarkDone($taskId)
 	{
 		if (!$this->user->isAllowed('Default')) {
