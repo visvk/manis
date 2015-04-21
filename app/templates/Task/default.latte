@@ -14,96 +14,73 @@
 					<li n:foreach="$solvers as $solver" class="task-list list-unstyled project-solvers-names">
 						<a n:href="UserView:view id=>$solver->user_id">{$solver->name} {$solver->surname}</a>
 					</li>
+					<span class="btn btn-default btn-sm project-solvers-add-new">Pridať +</span>
 				</ul>
 			</dd>
 		</dl>
 	</div
 
-	{*{if ($user->isAllowed('Default'))}*}
-		{*<h4><a n:href="Project:projects">Naspäť </a>*}
-			{*<a n:href="Task:files $project->id"><img src="images/Folder.png">Pridané súbory </a></h4>*}
-	{*{/if}*}
-	{*{if ($user->isAllowed('Default') || $isManager > 0)}*}
-		{*{form taskRegForm}*}
-			{*<div class="registration-form">*}
-				{*{control $form errors}*}
+	{if ($user->isAllowed('Default'))}
+		</br>
+		</br>
+		<div class="task-solvers-form col-md-12 hidden">
+				<dl class="dl-horizontal">
+					{form proj_usRegForm}
+					<dt class="task-solvers"><h5>{label solver /}:</h5></dt>
+					<dd class=" project-solvers-names ">
+						{input solver class=>'form-control'}
+					</dd>
+					<dt class="task-solvers"><h5>Manažér:</h5></dt>
+					<dd>
+						{input manager class=>'checkbox'}
+					</dd>
+					<dt class="task-solvers"></dt>
+					<dd>
+							{input set class=>'btn btn-success success-center'}
+					</dd>
+					{/form}
+				</dl>
 
-				{*<div class="pair">*}
 
-					{*<script>*}
-						{*$(document).ready(function () {*}
-							{*$("input.date")*}
-									{*.datepicker("option", "changeMonth", true)*}
-									{*.datepicker("option", "changeYear", true);*}
-						{*});*}
-					{*</script>*}
+				{*<div class="registration-form">*}
+					{*{control $form errors}*}
+					{*<div class="pair">*}
+
+						{*<table class="tasks">*}
+							{*<thead>*}
+							{*<tr>*}
+								{*<th class="one">{label solver /}</th>*}
+								{*<th class="two"></th>*}
+								{*<th class="three"></th>*}
+								{*<th class="four">{label manager /}</th>*}
+								{*<th class="five"></th>*}
+								{*<th class="six"></th>*}
+							{*</tr>*}
+							{*</thead>*}
+							{*<tbody>*}
+							{*<tr>*}
+								{*<td class="one">{input solver}</td>*}
+								{*<td class="two"></td>*}
+								{*<td class="three"></td>*}
+								{*<td class="four">{input manager}</td>*}
+								{*<td class="five">{input set}</td>*}
+								{*<td class="six"></td>*}
+							{*</tr>*}
+							{*</tbody>*}
+						{*</table>*}
+					{*</div>*}
 				{*</div>*}
-				{*<table class="tasks">*}
-					{*<thead>*}
-					{*<tr>*}
-						{*<th class="one">{label text /}</th>*}
-						{*<th class="two">{label solver /}</th>*}
-						{*<th class="three">{label birthDate /}</th>*}
-						{*<th class="four">{label endDate /}</th>*}
-						{*<th class="five">{label numfiles /}</th>*}
-						{*<th class="five"></th>*}
+		</div>
 
+	{/if}
 
-					{*</tr>*}
-					{*</thead>*}
-					{*<tbody>*}
-					{*<tr>*}
-						{*<td class="one">{input text}</td>*}
-						{*<td class="two">{input solver}</td>*}
-						{*<td class="three">{input birthDate}</td>*}
-						{*<td class="four">{input endDate}</td>*}
-						{*<td class="five">{input numfiles}</td>*}
-						{*<td class="five">{input set}</td>*}
-						{*<td class="five"></td>*}
+	<script>
+		$(document).ready(function(){
+			$('.project-solvers-add-new').click(function(e){
+				$('.task-solvers-form').removeClass('hidden')
+				$('.project-solvers-add-new').addClass('hidden')
 
-					{*</tr>*}
-					{*</tbody>*}
-				{*</table>*}
-			{*</div>*}
-		{*{/form}*}
-	{*{/if}*}
-
-
-	{*{control taskGrid}*}
-	{*{if ($user->isAllowed('Default'))}*}
-		{*{form proj_usRegForm}*}
-			{*<div class="registration-form">*}
-				{*{control $form errors}*}
-				{*<div class="pair">*}
-
-					{*<table class="tasks">*}
-						{*<thead>*}
-						{*<tr>*}
-							{*<th class="one">{label solver /}</th>*}
-							{*<th class="two"></th>*}
-							{*<th class="three"></th>*}
-							{*<th class="four">{label manager /}</th>*}
-							{*<th class="five"></th>*}
-							{*<th class="six"></th>*}
-						{*</tr>*}
-						{*</thead>*}
-						{*<tbody>*}
-						{*<tr>*}
-							{*<td class="one">{input solver}</td>*}
-							{*<td class="two"></td>*}
-							{*<td class="three"></td>*}
-							{*<td class="four">{input manager}</td>*}
-							{*<td class="five">{input set}</td>*}
-							{*<td class="six"></td>*}
-						{*</tr>*}
-						{*</tbody>*}
-					{*</table>*}
-				{*</div>*}
-			{*</div>*}
-		{*{/form}*}
-	{*{/if}*}
-	{*{control proj_usGrid}*}
-	{*{if ($user->isAllowed('Reg'))}*}
-		{*<div class="edite"><a n:href="edit $project->id" class="icon edit ajax">Editácia projektu</a></div>*}
-	{*{/if}*}
+			});
+		})
+	</script>
 {/block}

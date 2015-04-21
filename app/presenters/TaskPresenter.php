@@ -315,7 +315,7 @@ class TaskPresenter extends BasePresenter
 		$form->addSelect('solver', 'Riešiteľ', $users)
 			->setPrompt('Zvoľte riešiteľa')
 			->addRule(Form::FILLED, 'Musíte zadať riešiteľa.');
-		$form->addCheckbox('manager', 'Manažér');
+		$form->addCheckbox('manager', '');
 		$form->addSubmit('set', 'Pridať k projektu');
 		$form->onSuccess[] = $this->Proj_usRegFormSubmitted;
 

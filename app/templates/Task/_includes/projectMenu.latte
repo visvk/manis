@@ -5,6 +5,9 @@
 	{if ($user->isAllowed('Default'))}
 			<a class="btn btn-default" n:href="Task:files $project->id" role="button">Výstupy</a>
 	{/if}
+	{if ($user->isAllowed('Reg'))}
+		<a class="btn btn-default" n:href="edit $project->id" role="button">Editácia projektu</a>
+	{/if}
 </div>
 </br>
 </br>
