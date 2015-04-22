@@ -59,6 +59,15 @@ class TaskRepository extends Repository
 		);
 	}
 
+	public function ganttTaskEdit($id, $created, $submitted)
+	{
+		$this->findBy(array('id' => $id))->update(array(
+				'created' => new Nette\DateTime($created),
+				'submitted' =>  new Nette\DateTime($submitted)
+			)
+		);
+	}
+
 	/**
 	 * @param int $id
 	 */

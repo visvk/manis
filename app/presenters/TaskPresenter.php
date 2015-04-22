@@ -186,6 +186,12 @@ class TaskPresenter extends BasePresenter
 		$this->template->ganttData = json_encode($ganttData);
 	}
 
+	public function handleGanttUpdateTask($taskId, $start, $end)
+	{
+		$this->taskRepository->ganttTaskEdit($taskId, $start, $end);
+
+	}
+
 	public function handleMarkDone($taskId)
 	{
 		if (!$this->user->isAllowed('Default')) {
