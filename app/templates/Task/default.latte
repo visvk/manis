@@ -14,11 +14,14 @@
 					<li n:foreach="$solvers as $solver" class="task-list list-unstyled project-solvers-names">
 						<a n:href="UserView:view id=>$solver->user_id">{$solver->name} {$solver->surname}</a>
 					</li>
-					<span class="btn btn-default btn-sm project-solvers-add-new">Pridať +</span>
+
+					{if ($user->isAllowed('Default'))}
+						<span class="btn btn-default btn-sm project-solvers-add-new">Pridať +</span>
+					{/if}
 				</ul>
 			</dd>
 		</dl>
-	</div
+	</div>
 
 	{if ($user->isAllowed('Default'))}
 		</br>
@@ -77,6 +80,7 @@
 	<script>
 		$(document).ready(function(){
 			$('.project-solvers-add-new').click(function(e){
+				console.log("AHA");
 				$('.task-solvers-form').removeClass('hidden')
 				$('.project-solvers-add-new').addClass('hidden')
 

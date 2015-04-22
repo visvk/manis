@@ -150,10 +150,12 @@ class TaskPresenter extends BasePresenter
 
 	public function actionGantt($id)
 	{
-		if (!$this->user->isAllowed('Default')) {
-			$this->flashMessage('Access denied');
-			$this->redirect('Sign:in');
-		}
+//		if (!$this->user->isAllowed('Default')) {
+//			$this->flashMessage('Access denied');
+//			$this->redirect('Sign:in');
+//		}
+		$this->template->isManager = $this->proj_usRepository->findAll()->where("manager = 1 AND project_id = $id AND user_subj.user_id = ?", $this->user->getId())->count('*');
+
 		$this->idproj = $this->template->projectId =  $id;
 
 		$this->projEd = $this->template->project = $this->projectRepository->findById($id);
@@ -166,7 +168,7 @@ class TaskPresenter extends BasePresenter
 		$ganttData = array(
 			array(
 				"id" => 1,
-				"name" => "Feature 1",
+				"name" => $this->projEd->text,
 				"series" => array(
 				)
 			)
