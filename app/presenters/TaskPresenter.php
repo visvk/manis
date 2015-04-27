@@ -362,6 +362,10 @@ class TaskPresenter extends BasePresenter
 			->setPrompt('Zvoľte riešiteľa')
 			->addRule(Form::FILLED, 'Musíte zadať riešiteľa.');
 		$form->addCheckbox('manager', '');
+		$form->addCheckbox('analytic', '');
+		$form->addCheckbox('designer', '');
+		$form->addCheckbox('programmer', '');
+		$form->addCheckbox('tester', '');
 		$form->addSubmit('set', 'Pridať k projektu');
 		$form->onSuccess[] = $this->Proj_usRegFormSubmitted;
 
@@ -388,7 +392,7 @@ class TaskPresenter extends BasePresenter
 					$this->flashMessage('Úloha už má manažéra.', 'error');
 					$this->redirect('this');
 				} else {
-					$this->proj_usRepository->proj_usRegistration($valuesus->solver, $this->idproj, $manager);
+					$this->proj_usRepository->proj_usRegistration($valuesus->solver, $this->idproj, $valuesus);
 					$this->flashMessage('Pridali ste riešiteľa.', 'success');
 					$this->redirect('this');
 				}

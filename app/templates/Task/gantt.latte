@@ -7,11 +7,13 @@
 	<div id="eventMessage"></div>
 	<script type="text/javascript">
 		$(function () {
-			console.log({$ganttData});
+			{*console.log({$ganttData});*}
 
 			var width = $(".project-menu").width() - 300;
+			var data = JSON.parse({$ganttData});
+
 			$("#ganttChart").ganttView({
-				data: JSON.parse({$ganttData}),
+				data: data,
 				slideWidth: width,
 				behavior: {
 					resizable: {($user->isAllowed('Default') || $isManager > 0)} || false,
