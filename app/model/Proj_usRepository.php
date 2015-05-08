@@ -19,11 +19,11 @@ class Proj_usRepository extends Repository
 		$this->getTable()->insert(array(
 			'user_subj_id' => $riesitel,
 			'project_id' => $project,
-			'manager' => $values->manager,
-			'analytic' => $values->analytic,
-			'designer' => $values->designer,
-			'programmer' => $values->programmer,
-			'tester' => $values->tester
+			'manager' => $values['manager'],
+			'analytic' => $values['analytic'],
+			'designer' => $values['designer'],
+			'programmer' => $values['programmer'],
+			'tester' => $values['tester']
 
 
 		));

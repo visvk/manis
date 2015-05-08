@@ -28,15 +28,26 @@ class ProjectPresenter extends BasePresenter {
 
     private $projectRepository;
     private $subjectRepository;
+    private $proj_usRepository;
+    private $userSubjectRepository;
 
-    public function inject(Project\ProjectRepository $projectRepository, Project\SubjectRepository $subjectRepository) {
+    public function inject(Project\ProjectRepository $projectRepository,
+						   Project\User_subjRepository $userSubjectRepository,
+						   Project\Proj_usRepository $proj_usRepository,
+						   Project\SubjectRepository $subjectRepository) {
 
         $this->projectRepository = $projectRepository;
         $this->subjectRepository = $subjectRepository;
+        $this->proj_usRepository = $proj_usRepository;
+        $this->userSubjectRepository = $userSubjectRepository;
     }
 
     protected function createComponentProjRegForm() {
-        $predmety = $this->subjectRepository->findAllSubject()->fetchPairs('id', 'subject');
+		if ($this->user->isAllowed('Reg')) {
+			$predmety = $this->subjectRepository->findAllSubject()->fetchPairs('id', 'subject');
+		} else {
+			$predmety = $this->subjectRepository->findAllSubjectByUserId($this->user->id)->fetchPairs('id', 'subject');
+		}
 
 
         $form = new Form();
@@ -71,7 +82,7 @@ class ProjectPresenter extends BasePresenter {
     }
 
     public function ProjRegFormSubmitted(Form $form) {
-        if (!$this->user->isAllowed('Reg')){
+        if (!$this->user->isAllowed('Default')){
                 $this->flashMessage('Access denied');
                 $this->redirect('Sign:in');
             }
@@ -87,8 +98,16 @@ class ProjectPresenter extends BasePresenter {
         if ($values->birthDate < $values->endDate) {
 
 
-        $this->projectRepository->projectRegistration($values->text,$values->acronym, $values->subject, $values->solver, $values->birthDate, $values->endDate);
-        $this->flashMessage('Vytvorili ste projekt.', 'success');
+        $insert = $this->projectRepository->projectRegistration($values->text, $values->acronym, $values->subject, $values->solver, $values->birthDate, $values->endDate);
+
+		$userSubjectId = $this->userSubjectRepository->findBy(array('user_id' => $this->user->id, 'subject_id'=>$values->subject) )->fetch();
+		$this->proj_usRepository->proj_usRegistration($userSubjectId->id, $insert->id, array(
+			'manager'=>1,
+			'programmer'=>0,
+			'designer'=>0,
+			'tester' => 0,
+			'analytic' =>0));
+		$this->flashMessage('Vytvorili ste projekt.', 'success');
         $this->redirect('this');
         }else {$this->flashMessage('Zlý dátum.', 'error');}
     }

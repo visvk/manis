@@ -12,6 +12,11 @@ class SubjectRepository extends Repository
 		return $this->findAll();
 	}
 
+	public function findAllSubjectByUserId($userId)
+	{
+		return $this->db->table('user_subj')->select('subject.id, subject.subject')->where('user_id', $userId);
+	}
+
 	public function findByID($subject_id)
 	{
 		return $this->findAll()->where('id', $subject_id)->fetch();
