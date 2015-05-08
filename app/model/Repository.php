@@ -16,7 +16,10 @@ abstract class Repository extends Nette\Object {
     public function __construct(Connection $db) {
         $this->db = new Nette\Database\Context($db);
     }
-
+	public function findByID($id)
+	{
+		return $this->findAll()->where('id', $id)->fetch();
+	}
     /**
      * Vrací objekt reprezentující databázovou tabulku.
      * @return Nette\Database\Table\Selection

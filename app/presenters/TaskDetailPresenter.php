@@ -156,12 +156,8 @@ class TaskDetailPresenter extends BasePresenter
 	public function handleFileDelete($fileId)
 	{
 		$akcia = $this->fileRepository->findBy(array('id' => $fileId))->fetch();
-		if (!$this->user->isAllowed('Default')) {
-			$this->flashMessage('Access denied');
-			$this->redirect('Sign:in');
-		}
 		if ($akcia != NULL) {
-			unlink($this->context->params['wwwDir'] . $akcia->url);
+			unlink($this->context->getParameters()['wwwDir'] . $akcia->url);
 			$this->fileRepository->fileDelete($fileId);
 
 			$this->flashMessage('Súbor zmazaný.', 'success');
@@ -256,34 +252,18 @@ class TaskDetailPresenter extends BasePresenter
 		}
 	}
 
-	protected function createComponentAkceForm()
+	public function createComponentAkceForm()
 	{
 		$form = new Form();
-		//  $presenter = $this;
-
-		/*  $form->addCheckbox('agree', '  Přidat nebo změnit obrázek')
-					->addCondition($form::EQUAL, TRUE)
-					->toggle('newPic');*/
-		/*  $form->addGroup()
-					->setOption('container', \Nette\Utils\Html::el('td')->id('newPic'));*/
-		//$form->addHidden('tid');
 		$form->addUpload('obrazek', 'Obrázok:')
 			->addRule(Form::MIME_TYPE, 'Súbor musí byť typu .zip alebo .gzip.',
 				'application/zip')
 			->addRule(Form::MAX_FILE_SIZE, 'Soubor je príliš veľký! Povolená veľkosť je 2M.', 2 * 1024 * 1024);
-		$form->addTextArea('popis', 'Popis súboru:', 20, 2)
-			->getControlPrototype()->class('mceEditor');
+		$form->addTextArea('popis', 'Popis súboru:', 20, 2);
 
-		$form->addSubmit('save', 'Uložiť')->setAttribute('class', 'default');
-		/*  $form->addSubmit('cancel', 'Zrušiť')
-							->setValidationScope(FALSE)
-					->onClick[] = function () use ($presenter) {
-						$presenter->redirect('default');
-					};*/
+		$form->addSubmit('save', 'Uložiť');
 
-
-		$form->onSuccess[] = callback($this, 'akceFormSubmitted');
-		$form->addProtection('Vypršal časový limit, odošlite formulár znovu.');
+		$form->onSuccess[] =  $this->akceFormSubmitted;
 
 		return $form;
 	}
@@ -321,7 +301,7 @@ class TaskDetailPresenter extends BasePresenter
 
 			$projektURL = Strings::webalize($this->task->project->text, NULL, FALSE);
 			$shortFilename = $newid . '_' . $this->task->project->acronym . '_' . $this->task->user_subj->user->login . '_' . $file->name;
-			$imgUrl = $this->context->params['wwwDir'] . '/images/upload/' . $projektURL . '/' . $shortFilename;
+			$imgUrl = $this->context->getParameters()['wwwDir'] . '/images/upload/' . $projektURL . '/' . $shortFilename;
 
 			$this->fileRepository->findById($newid)->update(array(
 				'filename' => $shortFilename,
