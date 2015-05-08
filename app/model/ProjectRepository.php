@@ -3,6 +3,7 @@
 namespace Project;
 
 use Nette;
+use Nette\DateTime;
 
 
 class ProjectRepository extends Repository
@@ -49,6 +50,14 @@ class ProjectRepository extends Repository
 
 			)
 		);
+		$this->db->table('task')
+			->where('DATE(created) < DATE(?)', $created)
+			->where('project_id', $id)
+			->update(array('created' => $created));
+		$this->db->table('task')
+			->where('DATE(submitted) > DATE(?)', $submitted)
+			->where('project_id', $id)
+			->update(array('submitted' => $submitted));
 	}
 
 	public function mark($id, $mark)
