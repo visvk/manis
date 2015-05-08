@@ -1,18 +1,22 @@
 {block content}
 
 	{include '_includes/projectMenu.latte'}
-
 	<h3 n:block="title">{$project->text}</h3>
 	<div class="col-md-8">
 		<div class="task task-information">
 			<h5>INFORMÁCIE O TÍME</h5>
 		</div>
 		<dl class="dl-horizontal">
-			<dt class="task-solvers"><h5>Členovia tímu:</h5></dt>
+			<dt class="task-solvers">
+			<h5>Členovia tímu:</h5></dt>
 			<dd>
 				<ul>
 					<li n:foreach="$solvers as $solver" class="task-list list-unstyled project-solvers-names">
-						<a n:href="UserView:view id=>$solver->user_id">{$solver->name} {$solver->surname}</a>
+						{if ($user->isAllowed('Default'))}
+							<a n:href="UserView:view id=>$solver->user_id">{$solver->name} {$solver->surname}</a>
+						{else}
+							<span>{$solver->name} {$solver->surname}</span>
+						{/if}
 					</li>
 
 					{if ($user->isAllowed('Default'))}
@@ -22,80 +26,89 @@
 			</dd>
 		</dl>
 	</div>
-
 	{if ($user->isAllowed('Default'))}
 		</br>
 		</br>
 		<div class="task-solvers-form col-md-12 hidden">
-				<dl class="dl-horizontal">
-					{form proj_usRegForm}
-					<dt class="task-solvers"><h5>{label solver /}:</h5></dt>
+			<dl class="dl-horizontal">
+				{form proj_usRegForm}
+					<dt class="task-solvers">
+					<h5>{label solver /}:</h5>
+					</dt>
 					<dd class=" project-solvers-names ">
 						{input solver class=>'form-control'}
 					</dd>
-					<dt class="task-solvers"><h5>Manažér:</h5></dt>
+					<dt class="task-solvers">
+					<h5>Manažér:</h5>
+					</dt>
 					<dd>
 						{input manager class=>'checkbox'}
 					</dd>
-					<dt class="task-solvers"><h5>Analytik:</h5></dt>
+					<dt class="task-solvers">
+					<h5>Analytik:</h5>
+					</dt>
 					<dd>
 						{input analytic class=>'checkbox'}
 					</dd>
-					<dt class="task-solvers"><h5>Dizajnér:</h5></dt>
+					<dt class="task-solvers">
+					<h5>Dizajnér:</h5>
+					</dt>
 					<dd>
 						{input designer class=>'checkbox'}
 					</dd>
-					<dt class="task-solvers"><h5>Programátor:</h5></dt>
+					<dt class="task-solvers">
+					<h5>Programátor:</h5>
+					</dt>
 					<dd>
 						{input programmer class=>'checkbox'}
 					</dd>
-					<dt class="task-solvers"><h5>Tester:</h5></dt>
+					<dt class="task-solvers">
+					<h5>Tester:</h5>
+					</dt>
 					<dd>
 						{input tester class=>'checkbox'}
 					</dd>
 					<dt class="task-solvers"></dt>
 					<dd>
-							{input set class=>'btn btn-success success-center'}
+						{input set class=>'btn btn-success success-center'}
 					</dd>
-					{/form}
-				</dl>
+				{/form}
+			</dl>
 
 
-				{*<div class="registration-form">*}
-					{*{control $form errors}*}
-					{*<div class="pair">*}
+			{*<div class="registration-form">*}
+			{*{control $form errors}*}
+			{*<div class="pair">*}
 
-						{*<table class="tasks">*}
-							{*<thead>*}
-							{*<tr>*}
-								{*<th class="one">{label solver /}</th>*}
-								{*<th class="two"></th>*}
-								{*<th class="three"></th>*}
-								{*<th class="four">{label manager /}</th>*}
-								{*<th class="five"></th>*}
-								{*<th class="six"></th>*}
-							{*</tr>*}
-							{*</thead>*}
-							{*<tbody>*}
-							{*<tr>*}
-								{*<td class="one">{input solver}</td>*}
-								{*<td class="two"></td>*}
-								{*<td class="three"></td>*}
-								{*<td class="four">{input manager}</td>*}
-								{*<td class="five">{input set}</td>*}
-								{*<td class="six"></td>*}
-							{*</tr>*}
-							{*</tbody>*}
-						{*</table>*}
-					{*</div>*}
-				{*</div>*}
+			{*<table class="tasks">*}
+			{*<thead>*}
+			{*<tr>*}
+			{*<th class="one">{label solver /}</th>*}
+			{*<th class="two"></th>*}
+			{*<th class="three"></th>*}
+			{*<th class="four">{label manager /}</th>*}
+			{*<th class="five"></th>*}
+			{*<th class="six"></th>*}
+			{*</tr>*}
+			{*</thead>*}
+			{*<tbody>*}
+			{*<tr>*}
+			{*<td class="one">{input solver}</td>*}
+			{*<td class="two"></td>*}
+			{*<td class="three"></td>*}
+			{*<td class="four">{input manager}</td>*}
+			{*<td class="five">{input set}</td>*}
+			{*<td class="six"></td>*}
+			{*</tr>*}
+			{*</tbody>*}
+			{*</table>*}
+			{*</div>*}
+			{*</div>*}
 		</div>
-
 	{/if}
-
 	<script>
-		$(document).ready(function(){
-			$('.project-solvers-add-new').click(function(e){
+		$(document).ready(function () {
+			$('.project-solvers-add-new').click(function (e) {
 				console.log("AHA");
 				$('.task-solvers-form').removeClass('hidden')
 				$('.project-solvers-add-new').addClass('hidden')
