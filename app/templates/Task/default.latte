@@ -13,7 +13,7 @@
 				<ul>
 					<li n:foreach="$solvers as $solver" class="task-list list-unstyled project-solvers-names">
 						{if ($user->isAllowed('Default'))}
-							<a n:href="UserView:view id=>$solver->user_id">{$solver->name} {$solver->surname}</a>
+							<a href="mailto:{$solver->email}">{$solver->name} {$solver->surname}</a>
 						{else}
 							<span>{$solver->name} {$solver->surname}</span>
 						{/if}
