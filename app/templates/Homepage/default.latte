@@ -40,7 +40,7 @@
 		<h3 class="homepage ">Pedagógovia</h3>
 		<ul class="task-list list-unstyled">
 			<li n:foreach="$teachers as $teacher">
-				<div>{$teacher->name} {$teacher->surname}</div>
+				<div><a href="mailto:{$teacher->email}">{$teacher->name} {$teacher->surname}</a></div>
 			</li>
 
 		</ul>
