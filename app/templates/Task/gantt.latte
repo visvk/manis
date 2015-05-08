@@ -17,6 +17,7 @@
 				slideWidth: width,
 				behavior: {
 					resizable: {($user->isAllowed('Default') || $isManager > 0)} || false,
+					draggable: {($user->isAllowed('Default') || $isManager > 0)} || false,
 					onClick: function (data) {
 						var msg = "You clicked on an event: { start: " + data.start.toString("M/d/yyyy") + ", end: " + data.end.toString("M/d/yyyy") + " }";
 //						$("#eventMessage").text(msg);
