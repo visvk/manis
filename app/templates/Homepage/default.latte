@@ -1,6 +1,6 @@
 {block content}
 	<div class="col-md-4 homepage-item">
-		<h3 class="homepage title">Moje kurzy</h3>
+		<h3 class="homepage ">Moje predmety</h3>
 		<ul class="task-list">
 
 			{foreach $mySubjects as $mySubject}
@@ -17,8 +17,9 @@
 
 		</ul>
 	</div>
+	{if ($user->isAllowed('Default'))}
 	<div class="col-md-4 homepage-item">
-		<h3 class="homepage title">Všetky kurzy</h3>
+		<h3 class="homepage ">Všetky predmety</h3>
 		{foreach $subjects as $subject}
 		<div class="subject-items">
 			{$subject->subject}
@@ -34,8 +35,9 @@
 		</div>
 			{/foreach}
 	</div>
+	{/if}
 	<div class="col-md-4 homepage-item no-border-right">
-		<h3 class="homepage title">Pedagógovia</h3>
+		<h3 class="homepage ">Pedagógovia</h3>
 		<ul class="task-list list-unstyled">
 			<li n:foreach="$teachers as $teacher">
 				<div>{$teacher->name} {$teacher->surname}</div>

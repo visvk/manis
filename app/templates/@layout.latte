@@ -13,7 +13,7 @@
 	<meta name="description" content="">
 	<meta name="robots" content="{$robots}" n:ifset="$robots">
 
-	<title>{block title|striptags|upper}Student Project{/block}</title>
+	<title>{block title|striptags|upper}MSK{/block}</title>
 
 	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css">
 	<link rel="stylesheet" media="screen" href="{$basePath}/css/homepage.css">
@@ -104,17 +104,17 @@
 
 
 <div id="header">
-	<div class="title"> Študent Projekt</div>
+	<div class="title"> Manažment študentských projektov</div>
 
 	{if $user->isLoggedIn()}
 		<div class="user">
 
 			{if ($user->isAllowed('Reg'))}
-				<a n:href="Registration:registry">Registrácia užívateľa</a>
+				<a n:href="Registration:registry">Registrácia používateľa</a>
 			{/if}
 			<span class="icon user">{$user->getIdentity()->login}</span> |
 
-			<a n:href="Sign:out">Logout</a>
+			<a n:href="Sign:out">Odhlásiť</a>
 		</div>
 	{/if}
 	{if !$user->isLoggedIn()}
