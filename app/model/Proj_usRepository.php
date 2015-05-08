@@ -51,4 +51,15 @@ class Proj_usRepository extends Repository
 			->select('user_subj.user_id, user_subj.user.login, manager, user_subj.user.surname, user_subj.user.name')
 			->where('project_id',$projectId);
 	}
+
+	public function isManager($projectId, $userId)
+	{
+		$user = $this->getTable()
+			->select('*')
+			->where('project_id',$projectId)
+			->where('manager',1)
+			->where('user_subj.user_id',$userId);
+
+		return $user->count() > 0 ? TRUE : FALSE;
+	}
 }

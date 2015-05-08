@@ -404,6 +404,18 @@ class TaskPresenter extends BasePresenter
 		}
 	}
 
+	protected function taskItem($item, $projectId)
+	{
+		$task = $this->taskRepository->findByID($item->id);
+		$isOwner = $task->user_subj->user_id == $this->user->id;
+		$isManager = $this->proj_usRepository->isManager($projectId, $this->user->id);
+		if ($this->user->isAllowed('Default') || $isManager || $isOwner) {
+			return $taskItem = Html::el('a')->href('?presenter=TaskDetail&action=default&id=' . $item->id)->setText($item->text);
+		} else {
+			return $taskItem = Html::el('span')->setText($item->text);
+		}
+	}
+
 	protected function createComponentTaskGrid($name)
 	{
 		$grid = new Grid($this, $name);
@@ -416,8 +428,7 @@ class TaskPresenter extends BasePresenter
 			->setSortable()
 			->setReplacement(array('published' => 'ok'))
 			->setCustomRender(function ($item) {
-				$baseUr = Html::el('a')->href('?presenter=TaskDetail&action=default&id=' . $item->id)->setText($item->text);
-
+				$baseUr = $this->taskItem($item, $this->idproj);
 				return $baseUr;
 			});
 
