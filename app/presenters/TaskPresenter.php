@@ -249,7 +249,7 @@ class TaskPresenter extends BasePresenter
 
 		$akcia = $this->fileRepository->findBy(array('id' => $fileId))->fetch();
 		if ($akcia != NULL) {
-			unlink($this->context->params['wwwDir'] . $akcia->url);
+			unlink($this->context->getParameters()['wwwDir'] . $akcia->url);
 			$this->fileRepository->fileDelete($fileId);
 
 			$this->flashMessage('Súbor zmazaný.', 'success');

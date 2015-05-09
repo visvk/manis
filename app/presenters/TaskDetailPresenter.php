@@ -181,7 +181,7 @@ class TaskDetailPresenter extends BasePresenter
 			}else {$this->flashMessage('Problém pri sťahovaní súboru.', 'error');}*/
 
 
-		$file = $this->context->params['wwwDir'] . $fileDat->url; // soubor může být úplně mimo web root (=nestáhnutelný pomocí URL)
+		$file = $this->context->getParamters()['wwwDir'] . $fileDat->url; // soubor může být úplně mimo web root (=nestáhnutelný pomocí URL)
 		$fileName = $fileDat->filename;
 		$httpResponse = $this->context->getService('httpResponse');
 		$httpResponse->setHeader('Pragma', "public");
