@@ -17,6 +17,8 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
 	/** @var Nette\Database\Context */
 	private $database;
 	private $inRole;
+
+	// Set to FALSE for Local Authenticator
 	private $ldap = TRUE;
 
 	/**
