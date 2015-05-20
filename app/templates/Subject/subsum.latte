@@ -1,74 +1,77 @@
 {block content}
-<h1 n:block="title">Predmety</h1>
+	<h1 n:block="title">Predmety</h1>
+	{if $user->isAllowed('Reg')}
+		{form subjRegForm}
+			<div class="registration-form">
+				{control $form errors}
 
-{form subjRegForm}
-<div class="registration-form">
-    {control $form errors}
+				<div class="pair">
+					<table class="tasks">
+						<thead>
+						<tr>
+							<th class="one">{label subject /}</th>
+							<th class="two">{label year /}</th>
+							<th class="three"></th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td class="one">{input subject}</td>
+							<td class="two">{input year}</td>
+							<td class="three"> {input set}</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		{/form}
 
-    <div class="pair">
-        <table class="tasks">
-            <thead>
-                <tr>
-                    <th class="one">{label subject /}</th> 
-                    <th class="two">{label year /}</th>
-                    <th class="three"></th>                    
-                </tr>
-            </thead>
-            <tbody>
-                <tr>  
-                    <td class="one">{input subject}</td>
-                    <td class="two">{input year}</td>
-                    <td class="three"> {input set}</td>                   
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+	{/if}
 
- {/form}
+	{control subjectGrid}
+
+	{if $user->isAllowed('Reg')}
+		{form yearRegForm}
+			<div class="registration-form">
+				{control $form errors}
+
+				<div class="pair">
+					<table class="tasks">
+						<thead>
+						<tr>
+							<th class="one">{label year1 /}</th>
+							<th class="two">{label year2 /}</th>
+							<th class="three">{label term /}</th>
+							<th class="four">{label start /}</th>
+							<th class="five">{label end /}</th>
+							<th class="five"></th>
 
 
-{control subjectGrid}
-{form yearRegForm}
-<div class="registration-form">
-    {control $form errors}
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td class="one">{input year1}</td>
+							<td class="two">/  {input year2}</td>
+							<td class="three">{input term}</td>
+							<td class="four">{input start}</td>
+							<td class="five">{input end}</td>
+							<td class="five">{input set}</td>
+							<td class="five"></td>
 
-    <div class="pair">
-        <table class="tasks">
-            <thead>
-            <tr>
-                <th class="one">{label year1 /}</th> 
-                <th class="two">{label year2 /}</th>
-                <th class="three">{label term /}</th>
-                <th class="four">{label start /}</th>
-                <th class="five">{label end /}</th>
-                <th class="five"></th>
-                
-              
-            </tr>
-        </thead>
-        <tbody>
-            <tr>  
-                <td class="one">{input year1}</td>
-                <td class="two">/  {input year2}</td>
-                <td class="three">{input term}</td>
-                <td class="four">{input start}</td>
-                <td class="five">{input end}</td>
-                <td class="five">{input set}</td>
-                <td class="five"></td>
-                
-            </tr>
-        </tbody>
-        </table>
-    </div>
-</div>
- <script>
-  $(document).ready(function () {
-      $("input.date")
-          .datepicker("option", "changeMonth", true)
-          .datepicker("option", "changeYear", true);
-  });
-        </script>
- {/form}
- {control yearsGrid}
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<script>
+				$(document).ready(function () {
+					$("input.date")
+							.datepicker("option", "changeMonth", true)
+							.datepicker("option", "changeYear", true);
+				});
+			</script>
+		{/form}
+	{/if}
+	{control yearsGrid}
 {/block}
