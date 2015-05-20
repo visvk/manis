@@ -12,11 +12,7 @@
 			<dd>
 				<ul>
 					<li n:foreach="$solvers as $solver" class="task-list list-unstyled project-solvers-names">
-						{if ($user->isAllowed('Default'))}
-							<a href="mailto:{$solver->email}">{$solver->name} {$solver->surname}</a>
-						{else}
-							<span>{$solver->name} {$solver->surname}</span>
-						{/if}
+						<a href="mailto:{$solver->email}">{$solver->name} {$solver->surname}</a>
 					</li>
 
 					{if ($user->isAllowed('Default'))}
