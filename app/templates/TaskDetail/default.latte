@@ -1,97 +1,101 @@
 {block content}
-<h1 n:block="title">{$tasks->text}</h1>
-<h2> <a n:href="Task:default $tasks->project_id">{$tasks->project->text} </a></h2>
-<table class="tasks">
-    <thead>
-    <tr>
-        <th class="one">Nadpis</th>
-        <th class="two">Riešiteľ</th>        
-        <th class="three">Projekt</th>
-        <th class="four">Vznik</th>
-        <th class="five">Koniec</th>
-        <th class="six">Súbory</th>
-        <th class="six">Stav</th>
-       {if ($user->isAllowed('Default'))}  <th class="seven">Edit</th>{/if}
-    </tr>
-    </thead>
-   
-    <tbody>
-    {foreach $taskDetail as $tasks}
-    <tr n:class="$iterator->odd ? odd: even" >
-      
-        <td class="one">{$tasks->text}</td>
-        <td class="two">{$tasks->user_subj->user->login}</td>        
-        <td class="tdree">{$tasks->project->text}</td>
-        <td class="four">{$tasks->created|date:'j. M Y'}</td>
-        <td class="five">{$tasks->submitted|date:'j. M Y'}</td>
-        <td class="six">{$tasks->numfiles}</td>
-        <td class="six">{$tasks->grade}%</td>
-      {if ($user->isAllowed('Default'))}    <td class="seven"><a n:href="edit $tasks->id" class="icon edit ajax">Edit</a>
-          <a n:if="!$tasks->grade" n:href="markDone! $tasks->id" class="icon tick ajax">Hotovo</a></td>{/if}
-    </tr>
-    {/foreach}
-    </tbody>
-</table>
+	<h1 n:block="title">{$tasks->text}</h1>
+	<h2><a n:href="Task:default $tasks->project_id">{$tasks->project->text} </a></h2>
+	<table class="tasks">
+		<thead>
+		<tr>
+			<th class="one">Nadpis</th>
+			<th class="two">Riešiteľ</th>
+			<th class="three">Projekt</th>
+			<th class="four">Vznik</th>
+			<th class="five">Koniec</th>
+			<th class="six">Súbory</th>
+			<th class="six">Stav</th>
+			{if ($user->isAllowed('Default'))}
+				<th class="seven">Edit</th>
+			{/if}
+		</tr>
+		</thead>
 
-{foreach $taskDetail as $detail}
-<div class="pair"><b>Popis úlohy:</b><br>{$detail->desc}</div>
-{/foreach}
- {form akceForm}
+		<tbody>
+		{foreach $taskDetail as $tasks}
+			<tr n:class="$iterator->odd ? odd: even">
 
-<table class="tasks">
-	{control $form errors}
-   
-    <thead>
-    <tr>
-        <th class="one">{label obrazek/}</th>
-        <th class="two">{label popis/}</th>        
-        <th class="three"></th>
-        
-    </tr>
-    </thead>
-   
-    <tbody>
-    
-    <tr>
-        <td class="one"> {input obrazek}</td>
-        <td class="two">{input popis}</td>        
-        <td class="tdree">{input save}</td>
-        
-    </tr>
-    
-    </tbody>
-   
-</table>
+				<td class="one">{$tasks->text}</td>
+				<td class="two">{$tasks->user_subj->user->login}</td>
+				<td class="tdree">{$tasks->project->text}</td>
+				<td class="four">{$tasks->created|date:'j. M Y'}</td>
+				<td class="five">{$tasks->submitted|date:'j. M Y'}</td>
+				<td class="six">{$tasks->numfiles}</td>
+				<td class="six">{$tasks->grade}%</td>
+				{if ($user->isAllowed('Default'))}
+					<td class="seven"><a n:href="edit $tasks->id" class="icon edit ajax">Edit</a>
+						<a n:if="!$tasks->grade" n:href="markDone! $tasks->id" class="icon tick ajax">Hotovo</a></td>
+				{/if}
+			</tr>
+		{/foreach}
+		</tbody>
+	</table>
+	{foreach $taskDetail as $detail}
+		<div class="pair"><b>Popis úlohy:</b><br>{$detail->desc}</div>
+	{/foreach}
+	{form akceForm}
+		<table class="tasks">
+			{control $form errors}
 
- {/form akceForm}
+			<thead>
+			<tr>
+				<th class="one">{label obrazek/}</th>
+				<th class="two">{label popis/}</th>
+				<th class="three"></th>
 
-<table class="tasks">
-    <thead>
-    <tr>
-        <th class="two">Názov súboru</th>
-        <th class="two">Popis</th>        
-        <th class="four">Pridané</th>
-        <th class="five">Stav</th>
-        <th class="six"></th>
-    </tr>
-    </thead>
-   
-    <tbody>
-    {foreach $files as $file}
-        <tr n:class="$iterator->odd ? odd: even" >
-            <td class="two"><a n:href="downloadFile! $file->id">{$file->filename}</a></td>
-            <td class="two">{$file->desc}</td>        
-            <td class="three">{$file->created|date:'j. M Y'}</td>
-            <td class="four">{if ($file->grade == 0)}
-                Neohodnotené{elseif ($file->grade == 1)}
-                OK{else}Neprešlo
-{/if}</td>
-          <td class="five">{if ($user->isAllowed('Default'))}    <a n:if="$file->grade == 0 || $file->grade == 2" n:href="fileDone! $file->id" class="icon tick ajax">Hotovo</a>
-               <a n:if="$file->grade == 0 || $file->grade == 1" n:href="fileBad! $file->id"> <img src="images/Cancel.png"> Neprešlo</a>{/if}
-            <a n:href="fileDelete! $file->id"> <img src="images/Delete.png"> Zmazať</a></td>
-            <td class="six"></td>
-        </tr>
-    {/foreach}
-    </tbody>
-</table>
+			</tr>
+			</thead>
+
+			<tbody>
+
+			<tr>
+				<td class="one"> {input obrazek}</td>
+				<td class="two">{input popis}</td>
+				<td class="tdree">{input save}</td>
+
+			</tr>
+
+			</tbody>
+
+		</table>
+	{/form akceForm}
+	<table class="tasks">
+		<thead>
+		<tr>
+			<th class="two">Názov súboru</th>
+			<th class="two">Popis</th>
+			<th class="four">Pridané</th>
+			<th class="five">Stav</th>
+			<th class="six"></th>
+		</tr>
+		</thead>
+
+		<tbody>
+		{foreach $files as $file}
+			<tr n:class="$iterator->odd ? odd: even">
+				<td class="two"><a n:href="downloadFile! $file->id">{$file->filename}</a></td>
+				<td class="two">{$file->desc}</td>
+				<td class="three">{$file->created|date:'j. M Y'}</td>
+				<td class="four">{if ($file->grade == 0)}
+						Neohodnotené{elseif ($file->grade == 1)}
+						OK{else}Neprešlo
+					{/if}</td>
+				<td class="five">{if ($user->isAllowed('Default'))}
+						<a n:if="$file->grade == 0 || $file->grade == 2" n:href="fileDone! $file->id"
+						   class="icon tick ajax">Hotovo</a>
+						<a n:if="$file->grade == 0 || $file->grade == 1" n:href="fileBad! $file->id"> <img
+									src="images/Cancel.png"> Neprešlo</a>
+					{/if}
+					<a n:href="fileDelete! $file->id"> <img src="images/Delete.png"> Zmazať</a></td>
+				<td class="six"></td>
+			</tr>
+		{/foreach}
+		</tbody>
+	</table>
 {/block}

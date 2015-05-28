@@ -122,7 +122,7 @@
                     {_'Items %d - %d of %d', $paginator->getCountBegin(), $paginator->getCountEnd(), $control->count}
                     {input count}
                     {formContainer buttons}
-                        {input perPage, class => 'hide'}
+                        {input perPage}
                     {/formContainer}
                     <a n:if="$control->hasExporting()" class="btn btn-mini no-ajax" n:href="export!" title="{_'Export all items'}"><i class="icon-download"></i></a>
                 </span>

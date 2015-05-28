@@ -20,7 +20,6 @@ class TaskPresenter extends BasePresenter
 	private $idproj;
 	private $projEd;
 
-
 	public function startup()
 	{
 		parent::startup();
@@ -463,7 +462,6 @@ class TaskPresenter extends BasePresenter
 		}
 		return $grid;
 	}
-
 
 	protected function createComponentProj_usGrid($name)
 	{

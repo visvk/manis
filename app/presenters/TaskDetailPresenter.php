@@ -43,11 +43,7 @@ class TaskDetailPresenter extends BasePresenter
 	{
 		$brb = $this->taskRepository->findBy(array('task.id' => $id,
 			'user_subj.user_id' => $this->user->getId()));
-		if (!$this->user->isAllowed('Default') && $brb->count() === 0) {
-			$this->flashMessage('Access denied');
-			$this->redirect('Sign:in');
-		}
-//$this->task = $this->taskRepository->findAll()->where('task_id', $id)->fetch();
+
 		$this->task = $this->taskRepository->findBy(array('id' => $id))->fetch();
 		$this->idtask = $id;
 		if ($this->task === FALSE || $id === NULL) {
@@ -169,17 +165,11 @@ class TaskDetailPresenter extends BasePresenter
 			$this->presenter->redirect('this');
 		}
 
-		$this->invalidateControl();
 	}
 
 	public function handleDownloadFile($id)
 	{
 		$fileDat = $this->fileRepository->findBy(array('id' => $id))->fetch();
-		/*  if( $file!= NULL){
-	 $this->terminate(new DownloadResponse($this->context->params['wwwDir'].$file, "$file->filename", 'contenttype'));
-	 $this->flashMessage('Súbor stiahnutý.', 'success');
-			}else {$this->flashMessage('Problém pri sťahovaní súboru.', 'error');}*/
-
 
 		$file = $this->context->getParameters()['wwwDir'] . $fileDat->url; // soubor může být úplně mimo web root (=nestáhnutelný pomocí URL)
 		$fileName = $fileDat->filename;
@@ -201,7 +191,6 @@ class TaskDetailPresenter extends BasePresenter
 			$this->presenter->redirect('this');
 		}
 
-		$this->invalidateControl();
 	}
 
 	protected function createComponentTaskEditForm()
