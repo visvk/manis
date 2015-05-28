@@ -91,7 +91,7 @@
             <td colspan="{=$showActionsColumn ? $columnCount + 1 : $columnCount}">
                 <span n:if="$control->hasOperations()" n:block="operations" class="operations"  title="{_'Select some row'}">
                     {$form[Grido\Components\Operation::ID][Grido\Components\Operation::ID]->control}
-                    {?$form[Grido\Grid::BUTTONS][Grido\Components\Operation::ID]->controlPrototype->class[] = 'hide'}
+                    {*{?$form[Grido\Grid::BUTTONS][Grido\Components\Operation::ID]->controlPrototype->class[] = 'hide'}*}
                     {$form[Grido\Grid::BUTTONS][Grido\Components\Operation::ID]->control}
                 </span>
 
